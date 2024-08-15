@@ -1,14 +1,33 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
+import {FullInput} from './components/FullInput';
 
-
+export type MessageType = {
+    message: string
+}
 
 function App() {
-  return (
-    <div className="App">
+    let [messages, setMessages] = useState<Array<MessageType>>([
+        {message: 'message1'},
+        {message: 'message2'},
+        {message: 'message3'},
+    ])
 
-    </div>
-  );
+    const addMessage = (message: string) => {
+        let newMessage = {message: message}
+        setMessages([...messages, newMessage])
+    }
+
+    return (
+        <div className="App">
+            <FullInput addMessage={addMessage}></FullInput>
+            {messages.map((mes, index) => {
+                return (
+                    <div key={index}>{mes.message}</div>
+                )
+            })}
+        </div>
+    );
 }
 
 export default App;
